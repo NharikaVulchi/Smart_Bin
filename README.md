@@ -20,8 +20,7 @@
 
 
 
-![Untitled Workspace(2)](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/6e899016-99b7-433a-888b-73549ab93839)
 
-
+![Untitled Workspace(3)](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/cb1581a2-59ee-406c-b881-a7872ec391a9)
 
 
