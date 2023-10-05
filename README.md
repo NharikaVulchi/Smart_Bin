@@ -21,10 +21,20 @@
 # Implementation
 
 Step-1 : The waste is sensed by the inductive proximity sensor to detect if it is a metal or not.
+
+
 Step-2:  If the waste is metal waste then M1 is turned on and M2 is turned off and the waste is pushed into the metal waste bin. 
+
+
 Step-3:  If not a metallic waste, M1 is kept off when it comes in contact with the moisture sensor that decides whether the waste is a wet waste or dry waste by checking the moisture content of the waste.
+
+
 Step-4:  If the waste has some humidity it is detected as wet waste and M1 is turned off and M2 is turned on and the waste is pushed into the wet waste bin.
+
+
 Step-5:  If not a wet waste M1 is kept off and then the waste is dropped into the dry waste bin placed after turning on M3.
+
+
 Step-6:  Finally the wastes are dropped into the respective bins and the segregation process is completed.
 
 # Flowchart
