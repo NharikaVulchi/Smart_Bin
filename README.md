@@ -55,13 +55,15 @@ x30[0] --> data read from IR sensor used as input
 
 x30[1] --> data read from moisture sensor used as input
 
-x30[2] --> 
+x30[2] --> data read from moisture sensor used as input
+ 
+x30[4] --> output to LED
 
-x30[5]
+x30[5] --> output to motor driver 1 (bin connecting metal waste )
 
-x30[6]
+x30[6] --> output to motor driver 2 (bin connecting wet waste )
 
-x30[7]
+x30[7] --> output to motor driver 3 (bin connecting dry waste )
 
 We propose to build this solution using a RISC-V ASIC. The corresponding C code is shown below:
 
