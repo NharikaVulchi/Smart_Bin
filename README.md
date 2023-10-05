@@ -49,6 +49,20 @@ The flowchart and block diagram for the proposed solution are shown below:
 
 # C code
 
+**x30 register**
+
+x30[0] --> data read from IR sensor used as input
+
+x30[1] --> data read from moisture sensor used as input
+
+x30[2] --> 
+
+x30[5]
+
+x30[6]
+
+x30[7]
+
 We propose to build this solution using a RISC-V ASIC. The corresponding C code is shown below:
 
 ```
