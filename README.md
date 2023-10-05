@@ -101,14 +101,14 @@ void start(int ir)
 	{
 		printf("Bin is full\n");
 		LED_value=0; //digital_write(LED_pin_number,0)
-		led_value_2 = LED_value * 16;
+		int led_value_2 = LED_value * 16;
 		asm(
 		"or x30, x30,%0 \n\t"
 		:"=r"(led_value_2));
 		waste_detector(mois_sen,metal_sen,mm,mw,md);
-		mm_2= mm * 32;
-		mw_2 = mw * 64;
-		md_2 = md *128;
+		int mm_2= mm * 32;
+		int mw_2 = mw * 64;
+		int md_2 = md *128;
         	asm(
 		"or x30, x30, %0\n\t"
 		"or x30, x30, %1\n\t" 
@@ -123,10 +123,10 @@ void start(int ir)
 	else // we turn on the LED and donot open the lids
 	{
 		LED_value=1; //digital_write(LED_pin_number,1)
-		led_value_2 = LED_value * 16;
+		int led_value_3 = LED_value * 16;
 		asm(
-		"or x30, x30,%0 \n\t"
-		:"=r"(led_value_2));
+		"or x30, x30, %0 \n\t"
+		:"=r"(led_value_3));
 	}
 	
 	
@@ -136,21 +136,22 @@ int main(){
     
     ir=0; //ir=digital_read(ir_pin_number) 
     asm(
-    "addi %0 , x30, 0\n\t"
+    "andi %0 , x30, 0\n\t"
     :"=r"(ir));
     mois_sen=0; //mois_sen=digital_read(mois_sen_pin_number)
     asm(
-    "addi %0 , x30, 0\n\t"
+    "andi %0 , x30, 0\n\t"
     :"=r"(mois_sen));
     metal_sen =1; //metal_sen=digital_read(metal_sen_pin_number)
     asm(
-    "addi %0 , x30, 4\n\t"
+    "andi %0 , x30, 4\n\t"
     :"=r"(metal_sen));
     while(1){
         start(ir);
     }
     return(0);
 }
+    
 
 ```
 
