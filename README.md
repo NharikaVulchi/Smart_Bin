@@ -297,6 +297,16 @@ Disassembly of section .text:
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/f09bdd4f-b939-4fde-b093-f4a99ebe2c54)
 
+# Acknowledgement
+
+* Kunal Ghosh, VSD Corp. Pvt. Ltd.
+* Mayank Kabra
+
+# Reference
+
+https://electronicslovers.com/
+https://github.com/SakethGajawada/RISCV-GNU
+
 
 
 
