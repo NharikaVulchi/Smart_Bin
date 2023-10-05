@@ -90,7 +90,7 @@ void start(int ir)
 		LED_value=1; //digital_write(LED_pin_number,1)
 		led_value_2 = LED_value * 16;
 		asm(
-		"or x30, x30,%1 \n\t"
+		"or x30, x30,%0 \n\t"
 		:"=r"(led_value_2));
 	}
 	
@@ -101,15 +101,15 @@ int main(){
     
     ir=0; //ir=digital_read(ir_pin_number) 
     asm(
-    "andi %0 , x30, 0\n\t"
+    "addi %0 , x30, 0\n\t"
     :"=r"(ir));
     mois_sen=0; //mois_sen=digital_read(mois_sen_pin_number)
     asm(
-    "andi %0 , x30, 0\n\t"
+    "addi %0 , x30, 0\n\t"
     :"=r"(mois_sen));
     metal_sen =1; //metal_sen=digital_read(metal_sen_pin_number)
     asm(
-    "andi %0 , x30, 4\n\t"
+    "addi %0 , x30, 4\n\t"
     :"=r"(metal_sen));
     while(1){
         start(ir);
@@ -292,6 +292,10 @@ Disassembly of section .text:
  1f4:	fedff06f          	j	1e0 <.L10>
 
 ```
+
+**Number of unique instructions**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/f09bdd4f-b939-4fde-b093-f4a99ebe2c54)
 
 
 
