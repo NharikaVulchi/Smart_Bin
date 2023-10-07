@@ -105,7 +105,7 @@ void start(int ir)
 		asm volatile(
 		"or x30, x30,%0 \n\t"
 		:
-		:"r"(led_value_2));
+		:"r"(led_value_2)
 		:"x30"
 		);
 		waste_detector(mois_sen,metal_sen,mm,mw,md);
@@ -115,19 +115,19 @@ void start(int ir)
 		asm volatile(
 		"or x30, x30,%0 \n\t"
 		:
-		:"r"(mm_2));
+		:"r"(mm_2)
 		:"x30"
 		);
 		asm volatile(
 		"or x30, x30,%0 \n\t"
 		:
-		:"r"(mw_2));
+		:"r"(mw_2)
 		:"x30"
 		);
 		asm volatile(
 		"or x30, x30,%0 \n\t"
 		:
-		:"r"(md_2));
+		:"r"(md_2)
 		:"x30"
 		);
 		// digital_write(mm_pin_num,mm);
@@ -143,7 +143,7 @@ void start(int ir)
 		asm volatile(
 		"or x30, x30,%0 \n\t"
 		:
-		:"r"(led_value_3));
+		:"r"(led_value_3)
 		:"x30"
 		);
 	}
@@ -179,8 +179,6 @@ int main(){
     }
     return(0);
 }
-    
-
 ```
 
 
