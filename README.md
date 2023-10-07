@@ -329,50 +329,38 @@ Disassembly of section .text:
 Number of different instructions: 14
 
 
+```
 List of unique instructions:
 
 
 add
 
-
 ret
-
 
 or
 
-
 li
-
 
 mv
 
-
 sll
-
 
 sw
 
-
 beqz
-
 
 nop
 
-
 j
-
 
 bnez
 
-
 jal
-
 
 lui
 
-
 lw
-
+```
 
 
 # Acknowledgement
