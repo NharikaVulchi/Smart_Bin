@@ -55,7 +55,7 @@ x30[0] --> data read from IR sensor used as input
 
 x30[1] --> data read from moisture sensor used as input
 
-x30[2] --> data read from moisture sensor used as input
+x30[2] --> data read from inductive proximity sensor used as input
  
 x30[4] --> output to LED
 
@@ -365,6 +365,16 @@ lui
 
 lw
 ```
+
+# Functional Simulation Results
+
+In the below image we can see that the contents of **ID_instructions** are incrementing similar to the assembly code, which resembles the increase in the PC or our execution.
+
+
+![Screenshot from 2023-10-18 19-58-43](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/3b0d5697-bc32-4e55-b6b6-d3cc00885c33)
+
+
+The code involves use of 3 input_gpio_pins reading the values from the IR,moisture and metal proximity sensor  and 4 output_gpio_pins writing the values to the LED and 3 output motor drivers
 
 
 # Acknowledgement
