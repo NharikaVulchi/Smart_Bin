@@ -374,7 +374,18 @@ In the below image we can see that the contents of **ID_instructions** are incre
 ![Screenshot from 2023-10-18 19-58-43](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/3b0d5697-bc32-4e55-b6b6-d3cc00885c33)
 
 
-The code involves use of 3 input_gpio_pins reading the values from the IR,moisture and metal proximity sensor  and 4 output_gpio_pins writing the values to the LED and 3 output motor drivers
+1. The code involves use of 3 input_gpio_pins reading the values from the IR,moisture and metal proximity sensor  and 4 output_gpio_pins writing the values to the LED and 3 output motor drivers
+2. When the input_gpio_pins is given by **001** (LSB to the IR sensor output), indicating that output from **IR sensor is 1**, the output shows **0001** indicating that LED is ON and the bin is full.This is demonstrated in the below figure. We can also note that output is changing after **write_done** is 1.
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/671a0b40-f237-43da-ac29-ae93d5823a91)
+
+3. The below image shows for another case of input **100** indicating mositure sensor output to be 1, hence the wet bin motor driver is open which is given by **0100**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/986fb95f-dc3a-4b41-a1ec-4db6e4478ff7)
+
+   
+
+   
 
 
 # Acknowledgement
