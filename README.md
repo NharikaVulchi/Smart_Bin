@@ -179,6 +179,12 @@ gcc compile smart_bin.c
 ./a.out
 ```
 
+**output**
+
+the input value of IR sensor is given as 0. we can see that the output shows, bin is empty
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/2d8efe4b-eee5-4a0f-bcc8-cb5ac6883e8f)
+
 # Assembly code
 
 
