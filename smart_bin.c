@@ -91,8 +91,10 @@ int main()
 		:"r"(md_2)
 		:"x30"
 		);	
-    return(0);	
+    }
+
+return(0);	
 	
-   }
+   
 }
 
