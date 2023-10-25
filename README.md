@@ -509,7 +509,15 @@ int main()
 
 # functionality output using spike
 
-Observations:
+
+commands used:
+
+```
+riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o smart_bin smart_bin_new.c
+spike pk smart_bin
+```
+
+**Observations:**
 
 1. When the **mois_sen** value is 1 for the first 5 iterations, the wet bin is open and the corresponding motor driver should be high. The **motor driver status** in the below screenshot corresponds to the 4 output bits from the x30 register which are the **x30[6:3]** bits in the mentioned order i.e., dry/wet/metal/LED
 2. So when wet waste is detected, the wet bin notor driver is high and the bits **x30[6:3]** is **0100** which is 4
