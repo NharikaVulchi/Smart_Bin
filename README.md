@@ -1,4 +1,4 @@
-![spike+sim2](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/599bbdae-1971-4d30-a958-af210438972d)# Smart_Bin
+# Smart_Bin
 
 **Problem Statement**
 
