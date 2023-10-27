@@ -493,6 +493,8 @@ spike pk smart_bin
 
 # Functional simulation
 
+
+
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/d751fe04-2877-43f7-b474-3e85cb0284c0)
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/af981d0c-9051-4af3-a1ef-856c4714892a)
