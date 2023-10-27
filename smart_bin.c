@@ -15,24 +15,10 @@ int main()
 	int mw_2 = mw * 32; //5  --> shifting 5 bits to the left
 	int md_2 = md * 64; //6--> shifting 6 bits to the left
 	int mois_input;
-	int motor_status; //we will check the output bits using this code
-	int LED_mask=0xFFFFFFF7; //x30[3]
-	int mm_mask=0xFFFFFFEF; //x30[4]
-	int mw_mask=0xFFFFFFDF; //x30[5]
-	int md_mask=0xFFFFFFBF; //x30[6]
+	int LED_mask, mm_mask, mw_mask, md_mask;
+
 while(1)
 {
-
-	     int ir_input=0x00000000; //ir=digital_read(ir_pin_number) 
-	     int ir_mask= 0xFFFFFFFE; //this is making ir=0 x30[0]
-	     
-	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(ir_mask), "r"(ir_input)
-	    :"x30"
-	    );
 	    asm volatile(
 	    "andi %0,x30,1\n\t"
 	    :"=r"(ir)
@@ -40,39 +26,20 @@ while(1)
 	    :
 	    );
 
-	     
-	    int mois_mask = 0xFFFFFFFD; //this is making mois_sen=1 x30[1]
 	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(mois_mask), "r"(mois_input)
-	    :"x30"
-	    );
-	    asm volatile(
-	    "srli x10,x30,1\n\t"
-	    "andi %0,x10,1\n\t"
+	  //  "srli x10,x30,1\n\t"
+	    "andi %0,x30,0x0002\n\t"
 	    :"=r"(mois_sen)
 	    :
-	    :"x10"
+	    :
 	    );
 	    
-	     
-	    int metal_input = 0x0000000; //metal_sen=digital_read(metal_sen_pin_number)
-	    int metal_mask = 0xFFFFFFFB; //this is making metal_sen=0 x30[2]
 	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(metal_mask), "r"(metal_input)
-	    :"x30"
-	    );
-	    asm volatile(
-	    "srli x10,x30,2\n\t"
-	    "andi %0,x10,1\n\t"
+	  //  "srli x10,x30,2\n\t"
+	    "andi %0,x30,0x0004\n\t"
 	    :"=r"(metal_sen)
 	    :
-	    :"x10"
+	    :
 	    );     
     	if(!ir) //If the bin is not full, we manage the waste segregation
 	{
@@ -99,6 +66,10 @@ while(1)
    		   	md=0;mw=0;mm=0; //no waste detected, none of the bins are open
    		   	
    		   }
+	LED_mask=0xFFFFFFF7; //x30[3]
+	mm_mask=0xFFFFFFEF; //x30[4]
+	mw_mask=0xFFFFFFDF; //x30[5]
+	md_mask=0xFFFFFFBF; //x30[6]   		   
    		   led_value_2 = LED_value * 8;  //3 --> shifting 3 bits to the left
 		   mm_2= mm * 16; //4 --> shifting 4 bits to the left
 	 	   mw_2 = mw * 32; //5  --> shifting 5 bits to the left
@@ -132,14 +103,7 @@ while(1)
 		:"x30"
 		);
 		
-		asm volatile(
-		"srli x10,x30,3\n\t"
-		"andi %0, x10, 0x0000000F\n\t"
-		:"=r"(motor_status)
-		:
-		:"x10"
-		);
-   					
+		
 	}
 	else // we turn on the LED and donot open the lids
 	{
@@ -152,6 +116,10 @@ while(1)
 		mm_2= mm * 16; //4 --> shifting 4 bits to the left
 		mw_2 = mw * 32; //5  --> shifting 5 bits to the left
 	 	md_2 = md * 64; //6--> shifting 6 bits to the left
+	LED_mask=0xFFFFFFF7; //x30[3]
+	mm_mask=0xFFFFFFEF; //x30[4]
+	mw_mask=0xFFFFFFDF; //x30[5]
+	md_mask=0xFFFFFFBF; //x30[6]	 	
 		asm volatile(
 		"and x30,x30,%0 \n\t"
 		"or x30, x30,%1 \n\t"
@@ -179,15 +147,6 @@ while(1)
 		:
 		:"r"(md_mask),"r"(md_2)
 		:"x30"
-		);
-		
-
-		asm volatile(
-		"srli x10,x30,3\n\t"
-		"andi %0, x10, 0x0000000F\n\t"
-		:"=r"(motor_status)
-		:
-		:"x10"
 		);
 		
 	}
