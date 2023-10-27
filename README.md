@@ -69,6 +69,7 @@ We propose to build this solution using a RISC-V ASIC. The corresponding C code 
 
 ```
 
+
 int main()
 {
     
@@ -85,24 +86,10 @@ int main()
 	int mw_2 = mw * 32; //5  --> shifting 5 bits to the left
 	int md_2 = md * 64; //6--> shifting 6 bits to the left
 	int mois_input;
-	int motor_status; //we will check the output bits using this code
-	int LED_mask=0xFFFFFFF7; //x30[3]
-	int mm_mask=0xFFFFFFEF; //x30[4]
-	int mw_mask=0xFFFFFFDF; //x30[5]
-	int md_mask=0xFFFFFFBF; //x30[6]
+	int LED_mask, mm_mask, mw_mask, md_mask;
+
 while(1)
 {
-
-	     int ir_input=0x00000000; //ir=digital_read(ir_pin_number) 
-	     int ir_mask= 0xFFFFFFFE; //this is making ir=0 x30[0]
-	     
-	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(ir_mask), "r"(ir_input)
-	    :"x30"
-	    );
 	    asm volatile(
 	    "andi %0,x30,1\n\t"
 	    :"=r"(ir)
@@ -110,39 +97,20 @@ while(1)
 	    :
 	    );
 
-	     
-	    int mois_mask = 0xFFFFFFFD; //this is making mois_sen=1 x30[1]
 	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(mois_mask), "r"(mois_input)
-	    :"x30"
-	    );
-	    asm volatile(
-	    "srli x10,x30,1\n\t"
-	    "andi %0,x10,1\n\t"
+	  //  "srli x10,x30,1\n\t"
+	    "andi %0,x30,0x0002\n\t"
 	    :"=r"(mois_sen)
 	    :
-	    :"x10"
+	    :
 	    );
 	    
-	     
-	    int metal_input = 0x0000000; //metal_sen=digital_read(metal_sen_pin_number)
-	    int metal_mask = 0xFFFFFFFB; //this is making metal_sen=0 x30[2]
 	    asm volatile(
-	    "and x30, x30, %0\n\t"
-	    "or x30,x30, %1 \n\t"
-	    :
-	    :"r"(metal_mask), "r"(metal_input)
-	    :"x30"
-	    );
-	    asm volatile(
-	    "srli x10,x30,2\n\t"
-	    "andi %0,x10,1\n\t"
+	  //  "srli x10,x30,2\n\t"
+	    "andi %0,x30,0x0004\n\t"
 	    :"=r"(metal_sen)
 	    :
-	    :"x10"
+	    :
 	    );     
     	if(!ir) //If the bin is not full, we manage the waste segregation
 	{
@@ -169,6 +137,10 @@ while(1)
    		   	md=0;mw=0;mm=0; //no waste detected, none of the bins are open
    		   	
    		   }
+	LED_mask=0xFFFFFFF7; //x30[3]
+	mm_mask=0xFFFFFFEF; //x30[4]
+	mw_mask=0xFFFFFFDF; //x30[5]
+	md_mask=0xFFFFFFBF; //x30[6]   		   
    		   led_value_2 = LED_value * 8;  //3 --> shifting 3 bits to the left
 		   mm_2= mm * 16; //4 --> shifting 4 bits to the left
 	 	   mw_2 = mw * 32; //5  --> shifting 5 bits to the left
@@ -202,14 +174,7 @@ while(1)
 		:"x30"
 		);
 		
-		asm volatile(
-		"srli x10,x30,3\n\t"
-		"andi %0, x10, 0x0000000F\n\t"
-		:"=r"(motor_status)
-		:
-		:"x10"
-		);
-   					
+		
 	}
 	else // we turn on the LED and donot open the lids
 	{
@@ -222,6 +187,10 @@ while(1)
 		mm_2= mm * 16; //4 --> shifting 4 bits to the left
 		mw_2 = mw * 32; //5  --> shifting 5 bits to the left
 	 	md_2 = md * 64; //6--> shifting 6 bits to the left
+	LED_mask=0xFFFFFFF7; //x30[3]
+	mm_mask=0xFFFFFFEF; //x30[4]
+	mw_mask=0xFFFFFFDF; //x30[5]
+	md_mask=0xFFFFFFBF; //x30[6]	 	
 		asm volatile(
 		"and x30,x30,%0 \n\t"
 		"or x30, x30,%1 \n\t"
@@ -249,15 +218,6 @@ while(1)
 		:
 		:"r"(md_mask),"r"(md_2)
 		:"x30"
-		);
-		
-
-		asm volatile(
-		"srli x10,x30,3\n\t"
-		"andi %0, x10, 0x0000000F\n\t"
-		:"=r"(motor_status)
-		:
-		:"x10"
 		);
 		
 	}
@@ -563,9 +523,9 @@ smart_bin:     file format elf32-littleriscv
 Disassembly of section .text:
 
 00010054 <main>:
-   10054:	f9010113          	addi	sp,sp,-112
-   10058:	06812623          	sw	s0,108(sp)
-   1005c:	07010413          	addi	s0,sp,112
+   10054:	fb010113          	addi	sp,sp,-80
+   10058:	04812623          	sw	s0,76(sp)
+   1005c:	05010413          	addi	s0,sp,80
    10060:	fe042623          	sw	zero,-20(s0)
    10064:	fe042423          	sw	zero,-24(s0)
    10068:	fe042223          	sw	zero,-28(s0)
@@ -582,150 +542,130 @@ Disassembly of section .text:
    10094:	fe442783          	lw	a5,-28(s0)
    10098:	00679793          	slli	a5,a5,0x6
    1009c:	fcf42823          	sw	a5,-48(s0)
-   100a0:	ff700793          	li	a5,-9
+   100a0:	001f7793          	andi	a5,t5,1
    100a4:	fcf42623          	sw	a5,-52(s0)
-   100a8:	fef00793          	li	a5,-17
+   100a8:	002f7793          	andi	a5,t5,2
    100ac:	fcf42423          	sw	a5,-56(s0)
-   100b0:	fdf00793          	li	a5,-33
+   100b0:	004f7793          	andi	a5,t5,4
    100b4:	fcf42223          	sw	a5,-60(s0)
-   100b8:	fbf00793          	li	a5,-65
-   100bc:	fcf42023          	sw	a5,-64(s0)
-   100c0:	fa042e23          	sw	zero,-68(s0)
-   100c4:	ffe00793          	li	a5,-2
-   100c8:	faf42c23          	sw	a5,-72(s0)
-   100cc:	fb842783          	lw	a5,-72(s0)
-   100d0:	fbc42703          	lw	a4,-68(s0)
-   100d4:	00ff7f33          	and	t5,t5,a5
-   100d8:	00ef6f33          	or	t5,t5,a4
-   100dc:	001f7793          	andi	a5,t5,1
-   100e0:	faf42a23          	sw	a5,-76(s0)
-   100e4:	ffd00793          	li	a5,-3
-   100e8:	faf42823          	sw	a5,-80(s0)
-   100ec:	fb042783          	lw	a5,-80(s0)
-   100f0:	fac42703          	lw	a4,-84(s0)
-   100f4:	00ff7f33          	and	t5,t5,a5
-   100f8:	00ef6f33          	or	t5,t5,a4
-   100fc:	001f5513          	srli	a0,t5,0x1
-   10100:	00157793          	andi	a5,a0,1
-   10104:	faf42423          	sw	a5,-88(s0)
-   10108:	fa042223          	sw	zero,-92(s0)
-   1010c:	ffb00793          	li	a5,-5
-   10110:	faf42023          	sw	a5,-96(s0)
-   10114:	fa042783          	lw	a5,-96(s0)
-   10118:	fa442703          	lw	a4,-92(s0)
-   1011c:	00ff7f33          	and	t5,t5,a5
-   10120:	00ef6f33          	or	t5,t5,a4
-   10124:	002f5513          	srli	a0,t5,0x2
-   10128:	00157793          	andi	a5,a0,1
-   1012c:	f8f42e23          	sw	a5,-100(s0)
-   10130:	fb442783          	lw	a5,-76(s0)
-   10134:	10079063          	bnez	a5,10234 <main+0x1e0>
-   10138:	fe042023          	sw	zero,-32(s0)
-   1013c:	fa842783          	lw	a5,-88(s0)
-   10140:	02079063          	bnez	a5,10160 <main+0x10c>
-   10144:	f9c42783          	lw	a5,-100(s0)
-   10148:	00078c63          	beqz	a5,10160 <main+0x10c>
-   1014c:	00100793          	li	a5,1
-   10150:	fef42623          	sw	a5,-20(s0)
-   10154:	fe042423          	sw	zero,-24(s0)
-   10158:	fe042223          	sw	zero,-28(s0)
-   1015c:	0580006f          	j	101b4 <main+0x160>
-   10160:	f9c42783          	lw	a5,-100(s0)
-   10164:	02079063          	bnez	a5,10184 <main+0x130>
-   10168:	fa842783          	lw	a5,-88(s0)
-   1016c:	00078c63          	beqz	a5,10184 <main+0x130>
-   10170:	00100793          	li	a5,1
-   10174:	fef42423          	sw	a5,-24(s0)
-   10178:	fe042623          	sw	zero,-20(s0)
-   1017c:	fe042223          	sw	zero,-28(s0)
-   10180:	0340006f          	j	101b4 <main+0x160>
-   10184:	f9c42783          	lw	a5,-100(s0)
-   10188:	02079063          	bnez	a5,101a8 <main+0x154>
-   1018c:	fa842783          	lw	a5,-88(s0)
-   10190:	00079c63          	bnez	a5,101a8 <main+0x154>
-   10194:	00100793          	li	a5,1
-   10198:	fef42223          	sw	a5,-28(s0)
-   1019c:	fe042423          	sw	zero,-24(s0)
-   101a0:	fe042623          	sw	zero,-20(s0)
-   101a4:	0100006f          	j	101b4 <main+0x160>
-   101a8:	fe042223          	sw	zero,-28(s0)
-   101ac:	fe042423          	sw	zero,-24(s0)
-   101b0:	fe042623          	sw	zero,-20(s0)
-   101b4:	fe042783          	lw	a5,-32(s0)
-   101b8:	00379793          	slli	a5,a5,0x3
-   101bc:	fcf42e23          	sw	a5,-36(s0)
-   101c0:	fec42783          	lw	a5,-20(s0)
-   101c4:	00479793          	slli	a5,a5,0x4
-   101c8:	fcf42c23          	sw	a5,-40(s0)
-   101cc:	fe842783          	lw	a5,-24(s0)
-   101d0:	00579793          	slli	a5,a5,0x5
-   101d4:	fcf42a23          	sw	a5,-44(s0)
-   101d8:	fe442783          	lw	a5,-28(s0)
-   101dc:	00679793          	slli	a5,a5,0x6
-   101e0:	fcf42823          	sw	a5,-48(s0)
-   101e4:	fcc42783          	lw	a5,-52(s0)
-   101e8:	fdc42703          	lw	a4,-36(s0)
-   101ec:	00ff7f33          	and	t5,t5,a5
-   101f0:	00ef6f33          	or	t5,t5,a4
-   101f4:	fc842783          	lw	a5,-56(s0)
-   101f8:	fd842703          	lw	a4,-40(s0)
-   101fc:	00ff7f33          	and	t5,t5,a5
-   10200:	00ef6f33          	or	t5,t5,a4
-   10204:	fc442783          	lw	a5,-60(s0)
-   10208:	fd442703          	lw	a4,-44(s0)
-   1020c:	00ff7f33          	and	t5,t5,a5
-   10210:	00ef6f33          	or	t5,t5,a4
-   10214:	fc042783          	lw	a5,-64(s0)
-   10218:	fd042703          	lw	a4,-48(s0)
-   1021c:	00ff7f33          	and	t5,t5,a5
-   10220:	00ef6f33          	or	t5,t5,a4
-   10224:	003f5513          	srli	a0,t5,0x3
-   10228:	00f57793          	andi	a5,a0,15
-   1022c:	f8f42c23          	sw	a5,-104(s0)
-   10230:	e91ff06f          	j	100c0 <main+0x6c>
-   10234:	00100793          	li	a5,1
-   10238:	fef42023          	sw	a5,-32(s0)
-   1023c:	fe042223          	sw	zero,-28(s0)
-   10240:	fe042423          	sw	zero,-24(s0)
-   10244:	fe042623          	sw	zero,-20(s0)
-   10248:	fe042783          	lw	a5,-32(s0)
-   1024c:	00379793          	slli	a5,a5,0x3
-   10250:	fcf42e23          	sw	a5,-36(s0)
-   10254:	fec42783          	lw	a5,-20(s0)
-   10258:	00479793          	slli	a5,a5,0x4
-   1025c:	fcf42c23          	sw	a5,-40(s0)
-   10260:	fe842783          	lw	a5,-24(s0)
-   10264:	00579793          	slli	a5,a5,0x5
-   10268:	fcf42a23          	sw	a5,-44(s0)
-   1026c:	fe442783          	lw	a5,-28(s0)
-   10270:	00679793          	slli	a5,a5,0x6
-   10274:	fcf42823          	sw	a5,-48(s0)
-   10278:	fcc42783          	lw	a5,-52(s0)
-   1027c:	fdc42703          	lw	a4,-36(s0)
-   10280:	00ff7f33          	and	t5,t5,a5
-   10284:	00ef6f33          	or	t5,t5,a4
-   10288:	fc842783          	lw	a5,-56(s0)
-   1028c:	fd842703          	lw	a4,-40(s0)
-   10290:	00ff7f33          	and	t5,t5,a5
-   10294:	00ef6f33          	or	t5,t5,a4
-   10298:	fc442783          	lw	a5,-60(s0)
-   1029c:	fd442703          	lw	a4,-44(s0)
-   102a0:	00ff7f33          	and	t5,t5,a5
-   102a4:	00ef6f33          	or	t5,t5,a4
-   102a8:	fc042783          	lw	a5,-64(s0)
-   102ac:	fd042703          	lw	a4,-48(s0)
-   102b0:	00ff7f33          	and	t5,t5,a5
-   102b4:	00ef6f33          	or	t5,t5,a4
-   102b8:	003f5513          	srli	a0,t5,0x3
-   102bc:	00f57793          	andi	a5,a0,15
-   102c0:	f8f42c23          	sw	a5,-104(s0)
-   102c4:	dfdff06f          	j	100c0 <main+0x6c>
+   100b8:	fcc42783          	lw	a5,-52(s0)
+   100bc:	10079a63          	bnez	a5,101d0 <main+0x17c>
+   100c0:	fe042023          	sw	zero,-32(s0)
+   100c4:	fc842783          	lw	a5,-56(s0)
+   100c8:	02079063          	bnez	a5,100e8 <main+0x94>
+   100cc:	fc442783          	lw	a5,-60(s0)
+   100d0:	00078c63          	beqz	a5,100e8 <main+0x94>
+   100d4:	00100793          	li	a5,1
+   100d8:	fef42623          	sw	a5,-20(s0)
+   100dc:	fe042423          	sw	zero,-24(s0)
+   100e0:	fe042223          	sw	zero,-28(s0)
+   100e4:	0580006f          	j	1013c <main+0xe8>
+   100e8:	fc442783          	lw	a5,-60(s0)
+   100ec:	02079063          	bnez	a5,1010c <main+0xb8>
+   100f0:	fc842783          	lw	a5,-56(s0)
+   100f4:	00078c63          	beqz	a5,1010c <main+0xb8>
+   100f8:	00100793          	li	a5,1
+   100fc:	fef42423          	sw	a5,-24(s0)
+   10100:	fe042623          	sw	zero,-20(s0)
+   10104:	fe042223          	sw	zero,-28(s0)
+   10108:	0340006f          	j	1013c <main+0xe8>
+   1010c:	fc442783          	lw	a5,-60(s0)
+   10110:	02079063          	bnez	a5,10130 <main+0xdc>
+   10114:	fc842783          	lw	a5,-56(s0)
+   10118:	00079c63          	bnez	a5,10130 <main+0xdc>
+   1011c:	00100793          	li	a5,1
+   10120:	fef42223          	sw	a5,-28(s0)
+   10124:	fe042423          	sw	zero,-24(s0)
+   10128:	fe042623          	sw	zero,-20(s0)
+   1012c:	0100006f          	j	1013c <main+0xe8>
+   10130:	fe042223          	sw	zero,-28(s0)
+   10134:	fe042423          	sw	zero,-24(s0)
+   10138:	fe042623          	sw	zero,-20(s0)
+   1013c:	ff700793          	li	a5,-9
+   10140:	fcf42023          	sw	a5,-64(s0)
+   10144:	fef00793          	li	a5,-17
+   10148:	faf42e23          	sw	a5,-68(s0)
+   1014c:	fdf00793          	li	a5,-33
+   10150:	faf42c23          	sw	a5,-72(s0)
+   10154:	fbf00793          	li	a5,-65
+   10158:	faf42a23          	sw	a5,-76(s0)
+   1015c:	fe042783          	lw	a5,-32(s0)
+   10160:	00379793          	slli	a5,a5,0x3
+   10164:	fcf42e23          	sw	a5,-36(s0)
+   10168:	fec42783          	lw	a5,-20(s0)
+   1016c:	00479793          	slli	a5,a5,0x4
+   10170:	fcf42c23          	sw	a5,-40(s0)
+   10174:	fe842783          	lw	a5,-24(s0)
+   10178:	00579793          	slli	a5,a5,0x5
+   1017c:	fcf42a23          	sw	a5,-44(s0)
+   10180:	fe442783          	lw	a5,-28(s0)
+   10184:	00679793          	slli	a5,a5,0x6
+   10188:	fcf42823          	sw	a5,-48(s0)
+   1018c:	fc042783          	lw	a5,-64(s0)
+   10190:	fdc42703          	lw	a4,-36(s0)
+   10194:	00ff7f33          	and	t5,t5,a5
+   10198:	00ef6f33          	or	t5,t5,a4
+   1019c:	fbc42783          	lw	a5,-68(s0)
+   101a0:	fd842703          	lw	a4,-40(s0)
+   101a4:	00ff7f33          	and	t5,t5,a5
+   101a8:	00ef6f33          	or	t5,t5,a4
+   101ac:	fb842783          	lw	a5,-72(s0)
+   101b0:	fd442703          	lw	a4,-44(s0)
+   101b4:	00ff7f33          	and	t5,t5,a5
+   101b8:	00ef6f33          	or	t5,t5,a4
+   101bc:	fb442783          	lw	a5,-76(s0)
+   101c0:	fd042703          	lw	a4,-48(s0)
+   101c4:	00ff7f33          	and	t5,t5,a5
+   101c8:	00ef6f33          	or	t5,t5,a4
+   101cc:	ed5ff06f          	j	100a0 <main+0x4c>
+   101d0:	00100793          	li	a5,1
+   101d4:	fef42023          	sw	a5,-32(s0)
+   101d8:	fe042223          	sw	zero,-28(s0)
+   101dc:	fe042423          	sw	zero,-24(s0)
+   101e0:	fe042623          	sw	zero,-20(s0)
+   101e4:	fe042783          	lw	a5,-32(s0)
+   101e8:	00379793          	slli	a5,a5,0x3
+   101ec:	fcf42e23          	sw	a5,-36(s0)
+   101f0:	fec42783          	lw	a5,-20(s0)
+   101f4:	00479793          	slli	a5,a5,0x4
+   101f8:	fcf42c23          	sw	a5,-40(s0)
+   101fc:	fe842783          	lw	a5,-24(s0)
+   10200:	00579793          	slli	a5,a5,0x5
+   10204:	fcf42a23          	sw	a5,-44(s0)
+   10208:	fe442783          	lw	a5,-28(s0)
+   1020c:	00679793          	slli	a5,a5,0x6
+   10210:	fcf42823          	sw	a5,-48(s0)
+   10214:	ff700793          	li	a5,-9
+   10218:	fcf42023          	sw	a5,-64(s0)
+   1021c:	fef00793          	li	a5,-17
+   10220:	faf42e23          	sw	a5,-68(s0)
+   10224:	fdf00793          	li	a5,-33
+   10228:	faf42c23          	sw	a5,-72(s0)
+   1022c:	fbf00793          	li	a5,-65
+   10230:	faf42a23          	sw	a5,-76(s0)
+   10234:	fc042783          	lw	a5,-64(s0)
+   10238:	fdc42703          	lw	a4,-36(s0)
+   1023c:	00ff7f33          	and	t5,t5,a5
+   10240:	00ef6f33          	or	t5,t5,a4
+   10244:	fbc42783          	lw	a5,-68(s0)
+   10248:	fd842703          	lw	a4,-40(s0)
+   1024c:	00ff7f33          	and	t5,t5,a5
+   10250:	00ef6f33          	or	t5,t5,a4
+   10254:	fb842783          	lw	a5,-72(s0)
+   10258:	fd442703          	lw	a4,-44(s0)
+   1025c:	00ff7f33          	and	t5,t5,a5
+   10260:	00ef6f33          	or	t5,t5,a4
+   10264:	fb442783          	lw	a5,-76(s0)
+   10268:	fd042703          	lw	a4,-48(s0)
+   1026c:	00ff7f33          	and	t5,t5,a5
+   10270:	00ef6f33          	or	t5,t5,a4
+   10274:	e2dff06f          	j	100a0 <main+0x4c>
 ```
 
 **Number of unique instructions**
 
 
-Number of different instructions: 12
+Number of different instructions: 11
 
 
 List of unique instructions:
@@ -738,9 +678,6 @@ li
 
 
 and
-
-
-srli
 
 
 lw
