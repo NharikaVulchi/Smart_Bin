@@ -531,6 +531,19 @@ spike pk smart_bin
 ![spike+sim2](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/cfbd8e39-0fa1-4dcb-b3de-a7056c08326a)
 
 
+# Functional simulation
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/d751fe04-2877-43f7-b474-3e85cb0284c0)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/af981d0c-9051-4af3-a1ef-856c4714892a)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/91205a61-310f-48bb-826d-9e28051f71ca)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/334e6aea-c477-4cbc-902f-ae9f5d2ebc55)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/afc68cd0-fa9e-4ab3-9360-777aa5b788db)
+
+
 # Assembly code
 
 
