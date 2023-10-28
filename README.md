@@ -98,7 +98,6 @@ while(1)
 	    );
 
 	    asm volatile(
-	  //  "srli x10,x30,1\n\t"
 	    "andi %0,x30,0x0002\n\t"
 	    :"=r"(mois_sen)
 	    :
@@ -106,7 +105,6 @@ while(1)
 	    );
 	    
 	    asm volatile(
-	  //  "srli x10,x30,2\n\t"
 	    "andi %0,x30,0x0004\n\t"
 	    :"=r"(metal_sen)
 	    :
@@ -141,10 +139,10 @@ while(1)
 	mm_mask=0xFFFFFFEF; //x30[4]
 	mw_mask=0xFFFFFFDF; //x30[5]
 	md_mask=0xFFFFFFBF; //x30[6]   		   
-   		   led_value_2 = LED_value * 8;  //3 --> shifting 3 bits to the left
-		   mm_2= mm * 16; //4 --> shifting 4 bits to the left
-	 	   mw_2 = mw * 32; //5  --> shifting 5 bits to the left
-		   md_2 = md * 64; //6--> shifting 6 bits to the left
+   		   led_value_2 = LED_value * 8;  
+		   mm_2= mm * 16; 
+	 	   mw_2 = mw * 32; 
+		   md_2 = md * 64; 
    		asm volatile(
 		"and x30,x30,%0 \n\t"
 		"or x30, x30,%1 \n\t"
@@ -183,10 +181,10 @@ while(1)
 		md=0;
 		mw=0;
 		mm=0;
-		led_value_2 = LED_value * 8;  //3 --> shifting 3 bits to the left
-		mm_2= mm * 16; //4 --> shifting 4 bits to the left
-		mw_2 = mw * 32; //5  --> shifting 5 bits to the left
-	 	md_2 = md * 64; //6--> shifting 6 bits to the left
+		led_value_2 = LED_value * 8;  
+		mm_2= mm * 16; 
+		mw_2 = mw * 32; 
+	 	md_2 = md * 64; 
 	LED_mask=0xFFFFFFF7; //x30[3]
 	mm_mask=0xFFFFFFEF; //x30[4]
 	mw_mask=0xFFFFFFDF; //x30[5]
@@ -493,9 +491,18 @@ spike pk smart_bin
 
 # Functional simulation
 
-
+1. In the below image we can see that the contents of **ID_instructions** are incrementing in accoradance to that of assembly code, which resembles the increase in the PC or our execution.
+2. We can see the flags **"$signal[31;0], top_gpio_pins[31:0]"**, which resembles the x30 register.
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/d751fe04-2877-43f7-b474-3e85cb0284c0)
+
+
+1. The code involves use of 3 input_gpio_pins reading the values from the IR,moisture and metal proximity sensor  and 4 output_gpio_pins writing the values to the LED and 3 output motor drivers
+2. When the input_gpio_pins is given by **001** (LSB to the IR sensor output), indicating that output from **IR sensor is 1**, the output shows **0001** indicating that LED is ON and the bin is full.This is demonstrated in the below figure. 
+3. The below image shows for another case of input **010** indicating mositure sensor output to be 1, hence the wet bin motor driver is open which is given by **0100**
+4. When the input is **100**, indicating metal proximity sensor output is 1, hence the metal waste collecting bin is open , which resembles **0010** in the output.
+5. Similarly, input is **000** , output is **1000**, dry waste collecting bin is open.
+
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/af981d0c-9051-4af3-a1ef-856c4714892a)
 
