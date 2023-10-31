@@ -520,6 +520,12 @@ spike pk smart_bin
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/4c3fcb0f-a9b3-48d4-a900-9de3e9028d5d)
 
+# GLS
+
+ One sky130 SRAm cell added 
+
+ 
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21a438f6-58ab-47c6-bb20-22e663a342fd)
 
 
 # Assembly code
