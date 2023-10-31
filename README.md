@@ -555,6 +555,8 @@ When we run the GLS for the synthesised netlist **synthesised__processor_test.v*
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/dd2d4a52-d080-469b-9cca-1228ffc78ee2)
 
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21af3368-3f02-42b8-9fb6-699f381ea727)
+
 
 # Assembly code
 
