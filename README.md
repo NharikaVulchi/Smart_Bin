@@ -522,14 +522,38 @@ spike pk smart_bin
 
 # GLS
 
- One sky130 SRAm cell added 
+1. We perform the Gate Level Simulation on the netlist file synthesised from **yosys**.
+2.  This file basically maps the standard cells of **sky130** library to our design
+3.  Performing the GLS on our design, validates the logic of our design that is generated.
+4.  Following are the steps to convert our processor code to netlist:
 
- 
-![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21a438f6-58ab-47c6-bb20-22e663a342fd)
+```
+read_liberty -lib sky130_fd_sc_hd__tt_025C_1v80_256.lib 
+read_verilog processor.v
+synth -top wrapper
+dfflibmap -liberty sky130_fd_sc_hd__tt_025C_1v80_256.lib 
+abc -liberty sky130_fd_sc_hd__tt_025C_1v80_256.lib
+write_verilog syntheised__processor_test.v
+```
+5. To run the GLS simulation, follow the below commands:
+
+```
+iverilog -o test2 testbench.v syntheised__processor_test.v sky130_sram_1kbyte_1rw1r_32x256_8.v sky130_fd_sc_hd.v primitives.v 
+./test2
+gtkwave waveform.vcd
+```
 
 In the synthesis, we can see the instantiation of 2 SRAM cells from the sky130 lib
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/73e421ba-75e2-49eb-847c-77338a0076eb)
+
+The generated synthesised netlist for the wrapper module shows the instantiation of 2 SRAM cells.
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/529646c4-4ac1-4a04-801a-b6842fdb4d59)
+
+When we run the GLS for the synthesised netlist **synthesised__processor_test.v** we can see the use of sky130 cells in the gtkwave window and also the output that was matching with the functionality simulation for the input case **010**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/dd2d4a52-d080-469b-9cca-1228ffc78ee2)
 
 
 # Assembly code
