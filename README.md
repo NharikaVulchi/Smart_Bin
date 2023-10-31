@@ -512,11 +512,14 @@ spike pk smart_bin
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/afc68cd0-fa9e-4ab3-9360-777aa5b788db)
 
-6. In the below figure, we can observe that the output is being dumped at the instruction **FB842783** for the two input cases, which we can see in the assembly text that this instruction corresponds to **lw** instruction, using _a5_ register.
+6. In the below figure, we can observe that the output is being dumped at the instruction **00ef6f33** for the two input cases, which we can see in the assembly text that this instruction corresponds to **or** instruction, using _t5_ register.
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/9f420b92-934c-4593-8e49-0f58c97850c9)
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/1c131485-1067-400c-b085-aec2c8bc3ae0)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/4c3fcb0f-a9b3-48d4-a900-9de3e9028d5d)
+
 
 
 # Assembly code
