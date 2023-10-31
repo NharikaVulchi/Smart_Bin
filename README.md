@@ -527,6 +527,10 @@ spike pk smart_bin
  
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21a438f6-58ab-47c6-bb20-22e663a342fd)
 
+In the synthesis, we can see the instantiation of 2 SRAM cells from the sky130 lib
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/73e421ba-75e2-49eb-847c-77338a0076eb)
+
 
 # Assembly code
 
