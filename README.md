@@ -557,6 +557,19 @@ When we run the GLS for the synthesised netlist **synthesised__processor_test.v*
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21af3368-3f02-42b8-9fb6-699f381ea727)
 
+# PNR flow
+
+Placement magic
+
+code
+
+```
+magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.13_16.37.51/tmp/merged.nom.lef def read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.13_16.37.51/results/placement/wrapper.def &
+
+````
+
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21661e7b-8e25-415b-b0df-3a48b5144cf2)
 
 # Assembly code
 
