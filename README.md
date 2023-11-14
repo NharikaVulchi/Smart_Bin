@@ -559,6 +559,22 @@ When we run the GLS for the synthesised netlist **synthesised__processor_test.v*
 
 # PNR flow
 
+OpenLane flow is implemented for the ASIC design "SMART_BIN" , the following are the steps followed in the entire flow :
+
+```
+./flow.tcl -interactive
+package require openlane 0.9
+prep -design smart_project
+run_synthesis
+run_floorplan
+run_placement
+run_cts
+gen_pdn
+run_routing
+```
+Each stage reports and output ,viewed in magic , is shown below:
+
+
 
 **Synthesis**
 
@@ -588,11 +604,14 @@ When we run the GLS for the synthesised netlist **synthesised__processor_test.v*
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/b596eb4a-241d-4aa7-af8a-21745f09f415)
 
 
-**Placement magic**
+**Placement**
+
+Before this step, make sure to give the appropriate values according to your design for the **FP_CORE_UTIL** and **PL_TARGET_DENSITY** in the config.json file
+
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/227b1cbe-2192-4acb-9221-a595a0e55ebc)
 
-code
+**viewing the placement in magic**
 
 ```
 magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.13_16.37.51/tmp/merged.nom.lef def read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.13_16.37.51/results/placement/wrapper.def &
@@ -603,22 +622,27 @@ magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/nihari
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21661e7b-8e25-415b-b0df-3a48b5144cf2)
 
-**Routing magic**
+
+
+**Routing**
+
+
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/c37cffcc-9a11-43f1-81cd-8fa7c693804f)
+
+
+After routing is done, we view the post routing log reports and routing of our design layout in magic:
 
 code
 ```
 magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.14_15.01.04/tmp/merged.nom.lef def read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.14_15.01.04/results/routing/wrapper.def &
-[1] 74525
-```
 
-![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/c37cffcc-9a11-43f1-81cd-8fa7c693804f)
+```
 
 
 ![Screenshot from 2023-11-14 21-52-50](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/a9bc221d-5df3-46a0-85b5-15b66fdfdcd7)
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/d74c29f8-a6ea-41f5-86af-76be042602a3)
-
-
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/81d034bb-4d18-4b6a-b5aa-40279180baae)
 
