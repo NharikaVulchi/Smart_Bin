@@ -864,7 +864,8 @@ addi
 # Acknowledgement
 
 * Kunal Ghosh, VSD Corp. Pvt. Ltd.
-* Mayank Kabra
+* Mayank Kabra, Founder,Chipcron Pvt.Ltd.
+* 
 
 # Reference
 
@@ -874,7 +875,7 @@ https://electronicslovers.com/
 https://github.com/SakethGajawada/RISCV-GNU
 
 
-
+https://github.com/kunalg123
 
 
 
