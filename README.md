@@ -559,7 +559,38 @@ When we run the GLS for the synthesised netlist **synthesised__processor_test.v*
 
 # PNR flow
 
-Placement magic
+
+**Synthesis**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/4b0aff5e-eb18-4035-9329-deb3e591b4d2)
+
+
+**synthesis reports**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/c4b10d15-0ee9-4b85-a4c0-4a050e21d32d)
+
+**area reports**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/cf7d89ac-205e-4f74-aa2d-0583302f4dec)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/9e0fd814-8385-4b5e-a91d-527f5ad14b68)
+
+**CTS reports**
+
+**power**
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/be36c178-4d42-4d9f-93bf-4878ad2934b2)
+
+**Timing**
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/e5bd58d4-079a-492d-aabe-83acbf08b409)
+
+**Area**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/b596eb4a-241d-4aa7-af8a-21745f09f415)
+
+
+**Placement magic**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/227b1cbe-2192-4acb-9221-a595a0e55ebc)
 
 code
 
@@ -569,7 +600,41 @@ magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/nihari
 ````
 
 
+
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/21661e7b-8e25-415b-b0df-3a48b5144cf2)
+
+**Routing magic**
+
+code
+```
+magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.14_15.01.04/tmp/merged.nom.lef def read /home/niharika/OpenLane/designs/smart_project/runs/RUN_2023.11.14_15.01.04/results/routing/wrapper.def &
+[1] 74525
+```
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/c37cffcc-9a11-43f1-81cd-8fa7c693804f)
+
+
+![Screenshot from 2023-11-14 21-52-50](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/a9bc221d-5df3-46a0-85b5-15b66fdfdcd7)
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/d74c29f8-a6ea-41f5-86af-76be042602a3)
+
+
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/81d034bb-4d18-4b6a-b5aa-40279180baae)
+
+**post routing power report**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/bd2fc010-8fbe-4e75-8784-2ca81c657d55)
+
+**post routing timing report**
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/7eeb4b76-1d60-42c6-b95b-dd3b908b8fc5)
+
+**post routing design area**
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/6c53c923-56cf-4f64-baa0-2d28759b9c14)
+
+**DRC violations**
+
+![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/7d0a996f-56b3-4816-bd0f-77afcb271d76)
 
 # Assembly code
 
