@@ -660,6 +660,54 @@ magic -T /home/niharika/vsdstdcelldesign/libs/sky130A.tech lef read /home/nihari
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/7d0a996f-56b3-4816-bd0f-77afcb271d76)
 
+# files
+**config.json** used:
+
+```
+{
+    "DESIGN_NAME": "wrapper",
+    "VERILOG_FILES": "dir::src/processor.v",
+    "CLOCK_PORT": "clk",
+    "CLOCK_NET": "clk",
+    "GLB_RESIZER_TIMING_OPTIMIZATIONS": true,
+    "CLOCK_PERIOD": 70 ,
+    "FP_SIZING": "relative",
+    "PL_TARGET_DENSITY": 0.3,
+    "DIODE_PADDING" : 1, 
+    "SYNTH_NO_FLAT" : 1, 
+    "DESIGN_IS_CORE": 1,
+    "SYNTH_STRATEGY" : "DELAY 1", 
+    "STA_REPORT_POWER":1,
+     "CTS_REPORT_TIMING":1,
+     "GENERATE_FINAL_SUMMARY_REPORT":1,
+    "GRT_MACRO_EXTENSION" : 0,
+    "PL_MACRO_HALO" : "550 450", 
+    "PL_MACRO_CHANNEL" : "100 100",
+    "RUN_HEURISTIC_DIODE_INSERTION" : 5, 
+    "MACRO_PLACEMENT_CFG": "dir::macro_placement.cfg",
+    "FP_PDN_ENABLE_RAILS" : 1, 
+    "GRT_OVERFLOW_ITERS" : 150, 
+    "FP_PDN_CORE_RING" : 1 ,
+    "VDD_NETS": ["vccd1", "VPWR", "VPB"],
+    "GND_NETS": ["vssd1", "VGND", "VNB"],
+    "EXTRA_LEFS": "dir::src/sky130_sram_1kbyte_1rw1r_32x256_8.lef",
+    "EXTRA_GDS_FILES": "dir::src/sky130_sram_1kbyte_1rw1r_32x256_8.gds",
+    "EXTRA_LIBS": "dir::src/sky130_sram_1kbyte_1rw1r_32x256_8_TT_1p8V_25C.lib",
+    "pdk::sky130*": {
+        "FP_CORE_UTIL": 20,
+        "scl::sky130_fd_sc_hd": {
+            "FP_CORE_UTIL": 20
+        }
+    },
+    
+    "LIB_SYNTH": "dir::src/sky130_fd_sc_hd__tt_025C_1v80.lib",
+    "LIB_FASTEST": "dir::src/sky130_fd_sc_hd__ff_100C_1v65.lib",
+    "LIB_SLOWEST": "dir::src/sky130_fd_sc_hd__ss_100C_1v60.lib",
+    "LIB_TYPICAL": "dir::src/sky130_fd_sc_hd__tt_025C_1v80.lib"
+
+
+}
+```
 # Assembly code
 
 
