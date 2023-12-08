@@ -471,7 +471,7 @@ int main()
 commands used:
 
 ```
-riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o smart_bin smart_bin_new.c
+riscv32-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o smart_bin smart_bin_new.c
 spike pk smart_bin
 ```
 
