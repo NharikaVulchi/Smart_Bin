@@ -243,11 +243,34 @@ the input value of IR sensor is given as 0. we can see that the output shows, bi
 
 ![image](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/2d8efe4b-eee5-4a0f-bcc8-cb5ac6883e8f)
 
-# Spike simulation 
-
 
 We change the C code , to test the functionality using spike.
 5 of the input test cases run for **moisture_sensor** input to be 1 and other 5 the input value to be 0
+
+
+
+# functionality output using spike
+
+
+commands used:
+
+```
+riscv32-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o smart_bin smart_bin_new.c
+spike pk smart_bin
+```
+
+**Observations:**
+
+1. When the **mois_sen** value is 1 for the first 5 iterations, the wet bin is open and the corresponding motor driver should be high. The **motor driver status** in the below screenshot corresponds to the 4 output bits from the x30 register which are the **x30[6:3]** bits in the mentioned order i.e., dry/wet/metal/LED
+2. So when wet waste is detected, the wet bin notor driver is high and the bits **x30[6:3]** is **0100** which is 4
+3. Similarly, when **mois_sen** is 0, dry waste is detected , dry bin motor driver is high and **x30[6:3]** is **1000** which is 8
+4. Also, since **ir** is given 0 as input, which says that bin is not full, we can see the message **"Bin is empty"**.
+
+   
+![spike_sim1](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/784e518b-40a2-42d1-bac7-bf8af6b0ca70)
+
+
+![spike+sim2](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/cfbd8e39-0fa1-4dcb-b3de-a7056c08326a)
 
 
 ```
@@ -465,28 +488,7 @@ int main()
 }
 ```
 
-# functionality output using spike
 
-
-commands used:
-
-```
-riscv32-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o smart_bin smart_bin_new.c
-spike pk smart_bin
-```
-
-**Observations:**
-
-1. When the **mois_sen** value is 1 for the first 5 iterations, the wet bin is open and the corresponding motor driver should be high. The **motor driver status** in the below screenshot corresponds to the 4 output bits from the x30 register which are the **x30[6:3]** bits in the mentioned order i.e., dry/wet/metal/LED
-2. So when wet waste is detected, the wet bin notor driver is high and the bits **x30[6:3]** is **0100** which is 4
-3. Similarly, when **mois_sen** is 0, dry waste is detected , dry bin motor driver is high and **x30[6:3]** is **1000** which is 8
-4. Also, since **ir** is given 0 as input, which says that bin is not full, we can see the message **"Bin is empty"**.
-
-   
-![spike_sim1](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/784e518b-40a2-42d1-bac7-bf8af6b0ca70)
-
-
-![spike+sim2](https://github.com/NharikaVulchi/Smart_Bin/assets/83216569/cfbd8e39-0fa1-4dcb-b3de-a7056c08326a)
 
 
 # Functional simulation
